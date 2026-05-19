@@ -12,7 +12,7 @@ data class MotionPhotoInfo(
     val videoLength: Long
 )
 
-object MotionPhotoHelper {
+object MotionPhotoDetector {
 
     private const val SCAN_RANGE = 15L * 1024 * 1024
     private const val MIN_FILE_SIZE = 12L
