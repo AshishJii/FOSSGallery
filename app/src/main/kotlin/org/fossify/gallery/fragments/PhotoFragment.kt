@@ -283,7 +283,7 @@ class PhotoFragment : ViewPagerFragment() {
         //      checkIfPanorama()
         // }
 
-        if (mMedium.isImage() && (mMedium.name.endsWith(".jpg", true) || mMedium.name.endsWith(".jpeg", true))) {
+        if ((mMedium.isImage() && (mMedium.name.endsWith(".jpg", true) || mMedium.name.endsWith(".jpeg", true))) || mMedium.isHeic()) {
             ensureBackgroundThread {
                 checkIfMotionPhoto()
             }
@@ -953,8 +953,9 @@ class PhotoFragment : ViewPagerFragment() {
             requireContext(), mMedium.path, info.videoOffsetFromStart, info.videoLength
         )
 
+        val uri = if (mMedium.path.startsWith("content:/")) Uri.parse(mMedium.path) else Uri.fromFile(File(mMedium.path))
         val mediaSource = ProgressiveMediaSource.Factory(factory)
-            .createMediaSource(MediaItem.fromUri(Uri.fromFile(File(mMedium.path))))
+            .createMediaSource(MediaItem.fromUri(uri))
 
         val shouldLoop = requireContext().config.loopMotionPhotos
 
